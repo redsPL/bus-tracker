@@ -1,23 +1,20 @@
 <?php
+$fetch_only_if_needed = true;
+require('updateCache.php');
 
-$data_trips = json_decode(file_get_contents("cache/trips.json"),1);
-$data = json_decode(file_get_contents("cache/routes.json"),1);
-$id = 0;
-
-//foreach(reset($data_trips)["trips"] as $trip) {
-//	if($trip["routeShortName"] == $_GET["trip"]) {
-//		$id = $trip["routeId"];
-//	}
-//}
-
-foreach(reset($data)["routes"] as $route) {
+foreach(reset($routes)["routes"] as $route) {
 	if($route["routeShortName"] == $_GET["trip"]) {
-	    foreach(reset($data_trips)["trips"] as $trip) {
+	    foreach(reset($trips)["trips"] as $trip) {
 		if($trip["routeId"] == $route["routeId"] && $trip["tripId"] == $_GET["route"]) {
-        		echo json_encode($trip);
+        		$array = [
+        			"tripHeadsign" => $trip["tripHeadsign"]];
+        		echo json_encode($array);
+        		break;
         	}
 	    }
 	}
 }
 
-
+if($cache_expired) {
+	pclose(popen('php updateCache.php &',"r")); // because closing the connection from the main script doesn't always work
+}

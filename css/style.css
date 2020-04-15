@@ -1,0 +1,22 @@
+#data {
+	padding: 2px;
+	z-index: 10000;
+	position: absolute;
+	width: 300px;
+	background-color: rgba(0, 0, 0, 0.6);
+	color: #fff;
+	right: 10px;
+}
+@media only screen and (max-width: 768px) {
+  #data {
+    width: 100%;
+    right: 0px;
+    bottom: 0px;
+  }
+}
+#OpenLayers_Control_Attribution_7 {
+	bottom: 0px;
+}
+#OpenLayers_Control_Attribution_7:after {
+	content: " | app © reds";
+}
